@@ -6,8 +6,6 @@
 require 'scraperwiki'
 require 'nokogiri'
 
-p 'ok?';
-
 # Saving data:
 # unique_keys = [ 'id' ]
 # data = { 'id'=>12, 'name'=>'violet', 'age'=> 7 }
