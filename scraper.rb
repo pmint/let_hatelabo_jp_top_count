@@ -1,3 +1,36 @@
+#!/usr/bin/env ruby
+
+# let.hatelabo.jp top_count
+# from ScraperWiki
+
+require 'scraperwiki'
+require 'nokogiri'
+
+# Saving data:
+# unique_keys = [ 'id' ]
+# data = { 'id'=>12, 'name'=>'violet', 'age'=> 7 }
+# ScraperWiki.save_sqlite(unique_keys, data)
+
+
+
+url = "http://let.hatelabo.jp/"
+
+charset = nil
+html = open(url) do |f|
+  charset = f.charset
+  f.read
+end
+doc = Nokogiri::HTML.parse(html, nil, charset)
+
+doc.xpath('//*[@id="top-message"]/p[@class="top-count-container"]/span').text =~ /(\d+)\s+Bookmarklets/
+p $1
+ScraperWiki.save_sqlite(['id'], {
+    'id' => Time.now.to_i,
+    'top_count_blob' => $1,
+    'time_blob' => Time.now.getlocal('+09:00').to_s
+})
+
+
 # This is a template for a Ruby scraper on Morph (https://morph.io)
 # including some code snippets below that you should find helpful
 
