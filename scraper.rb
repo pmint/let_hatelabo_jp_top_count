@@ -13,7 +13,7 @@ require 'nokogiri'
 
 
 
-url = "http://let.hatelabo.jp/"
+url = "https://let.hatelabo.jp/"
 
 charset = nil
 html = open(url) do |f|
